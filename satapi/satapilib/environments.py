@@ -11,12 +11,14 @@ class SatAPIEnvironments(SatAPIConnection):
         return Response
 
     # Get a environment by its name
-    def getEnvironmentByName(self, Name):
-        Response=self.GET(self.KatelloAPILocation + 'environments/' + Name)
+    # Note: direct URL doesn't work, let's search and return first result only
+    def getEnvironmentByName(self, Name, OrganizationId):
+	Response=self.searchEnvironment(Name, OrganizationId, 1)['results'][0]
         return Response
 
     # Search environments by a search criteria
-    def searchEnvironment(self, criteria, count=99):
+    def searchEnvironment(self, Criteria, OrganizationId, Count=99):
         Response=self.GET(self.KatelloAPILocation + 'environments/',
-                            {'search': criteria, 'count': count})
+                            {'search': Criteria, 'count': Count,
+                             'organization_id': OrganizationId})
         return Response

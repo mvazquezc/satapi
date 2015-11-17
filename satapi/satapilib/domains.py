@@ -65,3 +65,35 @@ class SatAPIDomains(SatAPIConnection):
                             JSONData)
 
         return Response
+
+    # Attach a domain to an organization
+    def attachDomainToOrganization(self, Domain, Organization):
+        JSONData=json.dumps(
+            {
+                'domain': {
+                    'organization_ids': [
+                        str(Organization['id']),
+                    ],
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'domains/' + str(Domain['id']),
+                            JSONData)
+
+        return Response
+
+    # Attach a domain to a location
+    def attachDomainToLocation(self, Domain, Location):
+        JSONData=json.dumps(
+            {
+                'domain': {
+                    'location_ids': [
+                        str(Location['id']),
+                    ],
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'domains/' + str(Domain['id']),
+                            JSONData)
+
+        return Response

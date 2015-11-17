@@ -59,3 +59,35 @@ class SatAPISubnets(SatAPIConnection):
     def deleteSubnet(self, Subnet):
         Response=self.DELETE(self.SatAPILocation + 'subnets/' + str(Subnet['id']))
 	return Response
+
+    # Attach a subnet to an organization
+    def attachSubnetToOrganization(self, Subnet, Organization):
+        JSONData=json.dumps(
+            {
+                'subnet': {
+                    'organization_ids': [
+                        str(Organization['id']),
+                    ],
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'subnets/' + str(Subnet['id']),
+                            JSONData)
+
+        return Response
+
+    # Attach a subnet to a location
+    def attachSubnetToLocation(self, Subnet, Location):
+        JSONData=json.dumps(
+            {
+                'subnet': {
+                    'location_ids': [
+                        str(Location['id']),
+                    ],
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'subnets/' + str(Subnet['id']),
+                            JSONData)
+
+        return Response

@@ -36,24 +36,32 @@ class SatAPIConnection:
 
     # Debug messages
     def debug(self, text):
-        if self.Debug: print '[DEBUG-SATAPI] '+str(text)
+        if self.Debug: print '[DEBUG-SATAPI-CONNECTION] '+str(text)
+    def exception(self, text):
+        if self.Debug: print '[DEBUG-SATAPI-CONNECTION-EXCEPTION] '+str(text)
 
     # Default methods to do GET/POST/PUT/DELETE actions
     def GET(self, Location, JSON=''):
+	self.debug('ACTION: GET ' + Location)
+	self.debug('PARAMS: ' + str(JSON))
         Result=requests.get(
 	        Location, 
                 params=JSON, 
                 auth=(self.APIUser, self.APIPassword), 
                 verify=self.SSLVerify)
 
-        self.debug(str(Result))
+        self.debug('RESULT: ' + str(Result))
         try:
             Result.raise_for_status()
+            self.debug('RESULT: ' + str(Result.json()))
             return Result.json()
         except requests.exceptions.HTTPError as e:
-            sys.exit('[EXCEPTION-SATAPI] ' + e.message)
+            self.exception(e.message)
+            raise
 
     def POST(self, Location, JSON=''):
+	self.debug('ACTION: POST ' + Location)
+	self.debug('PARAMS: ' + str(JSON))
         Result=requests.post(
                 Location,
                 data=JSON,
@@ -61,14 +69,18 @@ class SatAPIConnection:
                 verify=self.SSLVerify,
                 headers=self.POSTHeaders)
 
-        self.debug(str(Result))
+        self.debug('RESULT: ' + str(Result))
         try:
             Result.raise_for_status()
+            self.debug('RESULT: ' + str(Result.json()))
             return Result.json()
         except requests.exceptions.HTTPError as e:
-            sys.exit('[EXCEPTION-SATAPI] ' + e.message)
+            self.exception(e.message)
+            raise
 
     def PUT(self, Location, JSON=''):
+	self.debug('ACTION: PUT ' + Location)
+	self.debug('PARAMS: ' + str(JSON))
         Result=requests.put(
                 Location,
                 data=JSON,
@@ -76,14 +88,18 @@ class SatAPIConnection:
                 verify=self.SSLVerify,
                 headers=self.POSTHeaders)
 
-        self.debug(str(Result))
+        self.debug('RESULT: ' + str(Result))
         try:
             Result.raise_for_status()
+            self.debug('RESULT: ' + str(Result.json()))
             return Result.json()
         except requests.exceptions.HTTPError as e:
-            sys.exit('[EXCEPTION-SATAPI] ' + e.message)
+            self.exception(e.message)
+            raise
 
     def DELETE(self, Location, JSON=''):
+	self.debug('ACTION: DELETE ' + Location)
+	self.debug('PARAMS: ' + str(JSON))
         Result=requests.delete(
                 Location,
                 data=JSON,
@@ -91,9 +107,11 @@ class SatAPIConnection:
                 verify=self.SSLVerify,
                 headers=self.POSTHeaders)
 
-        self.debug(str(Result))
+        self.debug('RESULT: ' + str(Result))
         try:
             Result.raise_for_status()
+            self.debug('RESULT: ' + str(Result.json()))
             return Result.json()
         except requests.exceptions.HTTPError as e:
-            sys.exit('[EXCEPTION-SATAPI] ' + e.message)
+            self.exception(e.message)
+            raise

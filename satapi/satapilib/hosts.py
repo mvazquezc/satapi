@@ -22,9 +22,10 @@ class SatAPIHosts(SatAPIConnection):
         return Response
 
     # Edit a host
-    def editHost(self, Id, data):
+    def editHost(self, Id, Data):
         Response=self.PUT(self.SatAPILocation + 'hosts/' + str(Id),
-                    json.dumps(data))
+                            json.dumps(Data))
+
         return Response
 
     # Enable/Disable build mode
@@ -48,4 +49,5 @@ class SatAPIHosts(SatAPIConnection):
         )
         Response=self.PUT(self.SatAPILocation + 'hosts/' + str(Host['id']),
                             JSONData)
+
         return Response
