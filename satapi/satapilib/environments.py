@@ -19,6 +19,6 @@ class SatAPIEnvironments(SatAPIConnection):
     # Search environments by a search criteria
     def searchEnvironment(self, Criteria, OrganizationId, Count=99):
         Response=self.GET(self.KatelloAPILocation + 'environments/',
-                            {'search': Criteria, 'count': Count,
+                            {'search': Criteria, 'count': Count, 'per_page': Count,
                              'organization_id': OrganizationId})
         return Response

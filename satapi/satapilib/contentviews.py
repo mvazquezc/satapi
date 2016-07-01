@@ -19,7 +19,7 @@ class SatAPIContentViews(SatAPIConnection):
     # Search content views by a search criteria
     def searchContentView(self, Criteria, Organization, Count=99):
         Response=self.GET(self.KatelloAPILocation + 'content_views/',
-                            {'search': Criteria, 'count': Count,
+                            {'search': Criteria, 'count': Count, 'per_page': Count,
                              'organization_id': Organization['id']})
         return Response
 
@@ -49,13 +49,14 @@ class SatAPIContentViews(SatAPIConnection):
         return Response
 
     # Create filter in a content view
-    def createFilter(self, Name, ContentView, Inclusion, Type):
+    def createFilter(self, Name, ContentView, Inclusion, Type, RepositoryList):
         JSONData=json.dumps(
             {
                 'name': Name,
                 'content_view_id': ContentView['id'],
                 'inclusion': Inclusion,
-                'type': Type
+                'type': Type,
+                'repository_ids': RepositoryList
             }
         )
         Response=self.POST(self.KatelloAPILocation + 'content_view_filters',

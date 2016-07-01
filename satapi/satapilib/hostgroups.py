@@ -21,7 +21,7 @@ class SatAPIHostgroups(SatAPIConnection):
     # Search hostgroups by a search criteria
     def searchHostgroup(self, criteria, count=99):
         Response=self.GET(self.SatAPILocation + 'hostgroups/',
-                            {'search': criteria, 'count': count})
+                            {'search': criteria, 'count': count, 'per_page': count})
         return Response
 
     # Create a hostgroup
@@ -56,7 +56,7 @@ class SatAPIHostgroups(SatAPIConnection):
                 }
             }
         )
-        Response=self.PUT(self.SatAPILocation + 'hostgroups/' + 
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
                             str(Hostgroup['id']), JSONData)
 
         return Response
@@ -72,7 +72,7 @@ class SatAPIHostgroups(SatAPIConnection):
                 }
             }
         )
-        Response=self.PUT(self.SatAPILocation + 'hostgroups/' + 
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
                             str(Hostgroup['id']), JSONData)
 
         return Response
@@ -87,7 +87,7 @@ class SatAPIHostgroups(SatAPIConnection):
                 }
             }
         )
-        Response=self.PUT(self.SatAPILocation + 'hostgroups/' + 
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
                             str(Hostgroup['id']), JSONData)
 
         return Response
@@ -102,7 +102,7 @@ class SatAPIHostgroups(SatAPIConnection):
                 }
             }
         )
-        Response=self.PUT(self.SatAPILocation + 'hostgroups/' + 
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
                             str(Hostgroup['id']), JSONData)
 
         return Response
@@ -124,7 +124,7 @@ class SatAPIHostgroups(SatAPIConnection):
                 }
             }
         )
-        Response=self.PUT(self.SatAPILocation + 'hostgroups/' + 
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
                            str(Hostgroup['id']), JSONData)
 
         return Response
@@ -159,3 +159,61 @@ class SatAPIHostgroups(SatAPIConnection):
                             str(Hostgroup['id']), JSONData)
 
         return Response
+
+    # Set Puppet Config Groups to a hostgroup
+    def setHostgroupPuppetConfigGroups(self, Hostgroup, ConfigGroups):
+        JSONData=json.dumps(
+            {
+                'hostgroup': {
+                    'config_groups': ConfigGroups,
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
+                            str(Hostgroup['id']), JSONData)
+
+        return Response
+
+
+    # Set the content source host of a hostgroup
+    def setHostgroupContentSourceCapsule(self, Hostgroup, Capsule):
+        JSONData=json.dumps(
+            {
+                'hostgroup': {
+                    'content_source_id': Capsule['id']
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
+                            str(Hostgroup['id']), JSONData)
+
+        return Response
+
+    # Set the puppet ca host of a hostgroup
+    def setHostgroupPuppetCACapsule(self, Hostgroup, Capsule):
+        JSONData=json.dumps(
+            {
+                'hostgroup': {
+                    'puppet_ca_proxy_id': Capsule['id']
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
+                            str(Hostgroup['id']), JSONData)
+
+        return Response
+
+    # Set the puppet master host of a hostgroup
+    def setHostgroupPuppetMasterCapsule(self, Hostgroup, Capsule):
+        JSONData=json.dumps(
+            {
+                'hostgroup': {
+                    'puppet_proxy_id': Capsule['id']
+                }
+            }
+        )
+        Response=self.PUT(self.SatAPILocation + 'hostgroups/' +
+                            str(Hostgroup['id']), JSONData)
+
+        return Response
+

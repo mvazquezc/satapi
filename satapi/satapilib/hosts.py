@@ -18,7 +18,7 @@ class SatAPIHosts(SatAPIConnection):
     # Search hosts by a search criteria
     def searchHost(self, criteria, count=99):
         Response=self.GET(self.SatAPILocation + 'hosts',
-                            {'search': criteria, 'count': count})
+                            {'search': criteria, 'count': count, 'per_page': count})
         return Response
 
     # Edit a host
@@ -51,3 +51,16 @@ class SatAPIHosts(SatAPIConnection):
                             JSONData)
 
         return Response
+
+    # Get a host by its name
+    def getHostFactsByName(self, Name):
+        Response=self.GET(self.SatAPILocation + 'hosts/' + Name + '/facts',
+                             {'per_page': 99999})
+        return Response['results'][Name]
+    
+    # Delete a Host
+    def deleteHost(self, Host):
+        Response=self.DELETE(self.SatAPILocation + 'hosts/' + 
+                                str(Host['id']))
+        return Response
+

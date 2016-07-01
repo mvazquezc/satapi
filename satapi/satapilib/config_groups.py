@@ -19,6 +19,6 @@ class SatAPIConfigGroups(SatAPIConnection):
     # Search config groups by a search criteria
     def searchConfigGroup(self, criteria, count=99):
         Response=self.GET(self.SatAPILocation + 'config_groups/',
-                            {'search': criteria, 'count': count})
+                            {'search': criteria, 'count': count, 'per_page': count})
         return Response
 

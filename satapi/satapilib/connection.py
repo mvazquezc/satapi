@@ -1,5 +1,7 @@
 import json
 import sys
+import logger as logger
+import logging
 
 try:
     import requests
@@ -24,7 +26,7 @@ class SatAPIConnection:
         'accept': 'application/json;version=2'
     }
     Debug=False
-    
+
     # Constructor
     def __init__(self, URL, User, Password, Debug=False):
         self.APILocation=URL
@@ -32,86 +34,115 @@ class SatAPIConnection:
         self.KatelloAPILocation='%s/katello/api/v2/' % URL
         self.APIUser=User
         self.APIPassword=Password
-        self.Debug=Debug
 
-    # Debug messages
-    def debug(self, text):
-        if self.Debug: print '[DEBUG-SATAPI-CONNECTION] '+str(text)
+        logger.setuplogger(Debug)
+
+        logging.getLogger("requests").setLevel(logging.CRITICAL)
+
     def exception(self, text):
-        if self.Debug: print '[DEBUG-SATAPI-CONNECTION-EXCEPTION] '+str(text)
+        logger.error(str(text), 1)
 
     # Default methods to do GET/POST/PUT/DELETE actions
     def GET(self, Location, JSON=''):
-	self.debug('ACTION: GET ' + Location)
-	self.debug('PARAMS: ' + str(JSON))
-        Result=requests.get(
-	        Location, 
-                params=JSON, 
-                auth=(self.APIUser, self.APIPassword), 
-                verify=self.SSLVerify)
-
-        self.debug('RESULT: ' + str(Result))
+	logger.debug('ACTION: GET ' + Location)
+	logger.debug('PARAMS: ' + str(JSON))
         try:
+            Result=requests.get(
+    	        Location,
+                    params=JSON,
+                    auth=(self.APIUser, self.APIPassword),
+                    verify=self.SSLVerify)
+
+            logger.debug('RESULT: ' + str(Result))
+
             Result.raise_for_status()
-            self.debug('RESULT: ' + str(Result.json()))
+            logger.debug('RESULT: ' + str(Result.json()))
             return Result.json()
-        except requests.exceptions.HTTPError as e:
-            self.exception(e.message)
+        except Exception as e:
+            logger.error(e.message)
+            logger.error_and_exit('Error conectando con Satellite', 4)
             raise
 
     def POST(self, Location, JSON=''):
-	self.debug('ACTION: POST ' + Location)
-	self.debug('PARAMS: ' + str(JSON))
-        Result=requests.post(
-                Location,
-                data=JSON,
-                auth=(self.APIUser, self.APIPassword),
-                verify=self.SSLVerify,
-                headers=self.POSTHeaders)
-
-        self.debug('RESULT: ' + str(Result))
+	logger.debug('ACTION: POST ' + Location)
+	logger.debug('PARAMS: ' + str(JSON))
         try:
+            Result=requests.post(
+                    Location,
+                    data=JSON,
+                    auth=(self.APIUser, self.APIPassword),
+                    verify=self.SSLVerify,
+                    headers=self.POSTHeaders)
+
+            logger.debug('RESULT: ' + str(Result))
+
             Result.raise_for_status()
-            self.debug('RESULT: ' + str(Result.json()))
+            logger.debug('RESULT: ' + str(Result.json()))
             return Result.json()
         except requests.exceptions.HTTPError as e:
-            self.exception(e.message)
+            logger.error(e.message)
+            logger.error_and_exit('Error conectando con Satellite', 4)
             raise
 
-    def PUT(self, Location, JSON=''):
-	self.debug('ACTION: PUT ' + Location)
-	self.debug('PARAMS: ' + str(JSON))
-        Result=requests.put(
-                Location,
-                data=JSON,
-                auth=(self.APIUser, self.APIPassword),
-                verify=self.SSLVerify,
-                headers=self.POSTHeaders)
+    def POST_FILES(self, Location, FILES):
+        logger.debug('ACTION: POST ' + Location)
 
-        self.debug('RESULT: ' + str(Result))
         try:
+            Result=requests.post(
+                    Location,
+                    files=FILES,
+                    auth=(self.APIUser, self.APIPassword),
+                    verify=self.SSLVerify)
+
+            logger.debug('RESULT: ' + str(Result))
+
             Result.raise_for_status()
-            self.debug('RESULT: ' + str(Result.json()))
+            logger.debug('RESULT: ' + str(Result.json()))
             return Result.json()
         except requests.exceptions.HTTPError as e:
-            self.exception(e.message)
+            logger.error(e.message)
+            logger.error_and_exit('Error conectando con Satellite', 4)
+            raise
+
+
+    def PUT(self, Location, JSON=''):
+        logger.debug('ACTION: PUT ' + Location)
+        logger.debug('PARAMS: ' + str(JSON))
+        try:
+            Result=requests.put(
+                    Location,
+                    data=JSON,
+                    auth=(self.APIUser, self.APIPassword),
+                    verify=self.SSLVerify,
+                    headers=self.POSTHeaders)
+
+            logger.debug('RESULT: ' + str(Result))
+
+            Result.raise_for_status()
+            logger.debug('RESULT: ' + str(Result.json()))
+            return Result.json()
+        except requests.exceptions.HTTPError as e:
+            logger.error(e.message)
+            logger.error_and_exit('Error conectando con Satellite', 4)
             raise
 
     def DELETE(self, Location, JSON=''):
-	self.debug('ACTION: DELETE ' + Location)
-	self.debug('PARAMS: ' + str(JSON))
-        Result=requests.delete(
-                Location,
-                data=JSON,
-                auth=(self.APIUser, self.APIPassword),
-                verify=self.SSLVerify,
-                headers=self.POSTHeaders)
-
-        self.debug('RESULT: ' + str(Result))
+        logger.debug('ACTION: DELETE ' + Location)
+        logger.debug('PARAMS: ' + str(JSON))
         try:
+            Result=requests.delete(
+                    Location,
+                    data=JSON,
+                    auth=(self.APIUser, self.APIPassword),
+                    verify=self.SSLVerify,
+                    headers=self.POSTHeaders)
+
+            logger.debug('RESULT: ' + str(Result))
+
             Result.raise_for_status()
-            self.debug('RESULT: ' + str(Result.json()))
+            logger.debug('RESULT: ' + str(Result.json()))
             return Result.json()
         except requests.exceptions.HTTPError as e:
-            self.exception(e.message)
+            logger.error(e.message)
+            logger.error_and_exit('Error conectando con Satellite', 4)
             raise

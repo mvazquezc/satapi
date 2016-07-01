@@ -19,6 +19,6 @@ class SatAPIPuppetModules(SatAPIConnection):
     # Search mobules by a search criteria
     def searchModules(self, criteria, count=99):
         Response=self.GET(self.KatelloAPILocation + 'puppet_modules/',
-                            {'search': criteria, 'count': count})
+                            {'search': criteria, 'count': count, 'per_page': count})
         return Response
 
