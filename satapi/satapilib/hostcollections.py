@@ -16,7 +16,7 @@ class SatAPIHostcollections(SatAPIConnection):
                             {'name': Name})
         return Response
 
-    # Create an organization given a name
+    # Create a host collection given a name
     def createHostcollection(self, Name, Organization):
         JSONData=json.dumps(
             {
