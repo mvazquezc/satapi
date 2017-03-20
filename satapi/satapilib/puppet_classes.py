@@ -13,7 +13,9 @@ class SatAPIPuppetClasses(SatAPIConnection):
 
     # Get a class by its name
     def getPuppetClassByName(self, Name):
-        Response=self.GET(self.SatAPILocation + 'puppetclasses/' + str(Name))
+        #Response=self.GET(self.SatAPILocation + 'puppetclasses/' + str(Name))
+        criteria = "name = %s" % Name
+        Response=self.searchPuppetClasses(criteria)
         return Response
 
     # Search classes by a search criteria
@@ -74,3 +76,18 @@ class SatAPIPuppetClasses(SatAPIConnection):
                  Response = 0
         return Response
 
+    #Method for fetching smart_class_params with all atributes
+    def getSmartClassParameter(self, sp_id):
+        """
+        Args:
+            sp_id (int): smart class parameter id
+        """
+
+        try:
+            Response = self.GET(self.SatAPILocation +
+                                "smart_class_parameters/" +
+                                str(sp_id))
+        except Exception as err:
+            raise err
+
+        return Response

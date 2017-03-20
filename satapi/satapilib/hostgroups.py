@@ -146,6 +146,13 @@ class SatAPIHostgroups(SatAPIConnection):
 
         return Response
 
+    # Search puppet classes by hostgroup id
+    def getPuppetClassesByHostGroup(self, id, count=99):
+        params = {'per_page': count}
+        Response = self.GET(self.SatAPILocation + 'hostgroups/' + str(id) +
+                            '/puppetclasses', params)
+        return Response
+
     # Set Puppet Classes to a hostgroup
     def setHostgroupPuppetClassesIds(self, Hostgroup, Ids):
         JSONData=json.dumps(
