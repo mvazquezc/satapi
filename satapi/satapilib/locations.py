@@ -15,3 +15,14 @@ class SatAPILocations(SatAPIConnection):
         Response=self.GET(self.SatAPILocation + 'locations/' + Name)
         return Response
 
+    def createLocation(self, Name):
+        JSONData=json.dumps(
+            {
+                'location': {
+                    'name': Name
+                }
+            }
+        )
+        Response=self.POST(self.SatAPILocation + 'locations/', JSONData)
+        return Response
+
