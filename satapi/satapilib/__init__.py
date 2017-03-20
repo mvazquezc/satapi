@@ -9,6 +9,7 @@ from environments import *
 from hosts import *
 from hostcollections import *
 from hostgroups import *
+from lifecycle_environments import *
 from locations import *
 from media import *
 from operatingsystems import *
