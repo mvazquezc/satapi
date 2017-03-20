@@ -14,4 +14,15 @@ class SatAPIOrganizations(SatAPIConnection):
     def getOrganizationByName(self, Name):
         Response=self.GET(self.KatelloAPILocation + 'organizations/' + Name)
         return Response
-
+    
+    # Create an organization given a name
+    def createOrganization(self, Name):
+        JSONData=json.dumps(
+            {
+                'organization': {
+                    'name': Name
+                }
+            }
+        )
+        Response=self.POST(self.KatelloAPILocation + 'organizations/', JSONData)
+        return Response
