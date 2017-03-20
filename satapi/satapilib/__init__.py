@@ -7,6 +7,7 @@ from contentviews import *
 from domains import *
 from environments import *
 from hosts import *
+from hostcollections import *
 from hostgroups import *
 from locations import *
 from media import *
