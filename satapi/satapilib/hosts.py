@@ -30,25 +30,39 @@ class SatAPIHosts(SatAPIConnection):
 
     # Enable/Disable build mode
     def setBuildMode(self, Id, Status):
-        Response=self.PUT(self.SatAPILocation + 'hosts/' + str(Id), 
+        Response=self.PUT(self.SatAPILocation + 'hosts/' + str(Id),
                             json.dumps({'host': {'build': Status}}))
 	return Response
 
-    # Modify an existing parameter in a host
+    # Modify an existing parameter in a host (or create it not exists)
     def setHostParameter(self, Host, Name, Value):
+        New=True
         for Parameter in Host['parameters']:
             if Parameter['name']==Name:
-                Parameter['value']=Value 
+                Parameter['value']=Value
+                New=False
 
-        JSONData=json.dumps(
-            {
-                'host': {
-                    'host_parameters_attributes': Host['parameters']
+        if New is True:
+            JSONData=json.dumps(
+                {
+                    'parameter': {
+                        'name': Name,
+                        'value' : Value
+                    }
                 }
-            }
-        )
-        Response=self.PUT(self.SatAPILocation + 'hosts/' + str(Host['id']),
-                            JSONData)
+            )
+            Response=self.POST(self.SatAPILocation + 'hosts/' + str(Host['id'])+
+                                 '/parameters', JSONData)
+        else:
+            JSONData=json.dumps(
+                {
+                    'host': {
+                        'host_parameters_attributes': Host['parameters']
+                    }
+                }
+            )
+            Response=self.PUT(self.SatAPILocation + 'hosts/' + str(Host['id']),
+                                JSONData)
 
         return Response
 
@@ -57,10 +71,9 @@ class SatAPIHosts(SatAPIConnection):
         Response=self.GET(self.SatAPILocation + 'hosts/' + Name + '/facts',
                              {'per_page': 99999})
         return Response['results'][Name]
-    
+
     # Delete a Host
     def deleteHost(self, Host):
-        Response=self.DELETE(self.SatAPILocation + 'hosts/' + 
+        Response=self.DELETE(self.SatAPILocation + 'hosts/' +
                                 str(Host['id']))
         return Response
-

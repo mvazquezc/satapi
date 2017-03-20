@@ -11,8 +11,9 @@ class SatAPIActivationKeys(SatAPIConnection):
         return Response
 
     # Get an activation key by its name
-    def getActivationKeyByName(self, Name):
-        Response=self.GET(self.KatelloAPILocation + 'activation_keys/' + Name)
+    def getActivationKeyByName(self, Name, Organization):
+        params = {'name': Name, 'organization_id': Organization.get('id')}
+        Response=self.GET(self.KatelloAPILocation + 'activation_keys/', params)
         return Response
 
     # Create Activation Key
@@ -64,7 +65,7 @@ class SatAPIActivationKeys(SatAPIConnection):
                 }
             }
         )
-        Response=self.PUT(self.KatelloAPILocation + 'activation_keys/' + 
+        Response=self.PUT(self.KatelloAPILocation + 'activation_keys/' +
                             str(ActivationKey['id']) + '/content_override',
                             JSONData)
         return Response

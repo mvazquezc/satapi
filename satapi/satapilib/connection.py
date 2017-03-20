@@ -39,8 +39,11 @@ class SatAPIConnection:
 
         logging.getLogger("requests").setLevel(logging.CRITICAL)
 
+        # Disable SSL Warnings
+        requests.packages.urllib3.disable_warnings()
+
     def exception(self, text):
-        logger.error(str(text), 1)
+        logger.error(str(text))
 
     # Default methods to do GET/POST/PUT/DELETE actions
     def GET(self, Location, JSON=''):
@@ -60,7 +63,7 @@ class SatAPIConnection:
             return Result.json()
         except Exception as e:
             logger.error(e.message)
-            logger.error_and_exit('Error conectando con Satellite', 4)
+            logger.error('Error conectando con Satellite')
             raise
 
     def POST(self, Location, JSON=''):
@@ -81,7 +84,10 @@ class SatAPIConnection:
             return Result.json()
         except requests.exceptions.HTTPError as e:
             logger.error(e.message)
-            logger.error_and_exit('Error conectando con Satellite', 4)
+            logger.error('Error conectando con Satellite')
+            logger.debug(Result.url + ': ' +
+                         Result.status_code + ' [ ' +
+                         Result.reason + ' ]')
             raise
 
     def POST_FILES(self, Location, FILES):
@@ -123,7 +129,7 @@ class SatAPIConnection:
             return Result.json()
         except requests.exceptions.HTTPError as e:
             logger.error(e.message)
-            logger.error_and_exit('Error conectando con Satellite', 4)
+            logger.error('Error conectando con Satellite')
             raise
 
     def DELETE(self, Location, JSON=''):
@@ -144,5 +150,5 @@ class SatAPIConnection:
             return Result.json()
         except requests.exceptions.HTTPError as e:
             logger.error(e.message)
-            logger.error_and_exit('Error conectando con Satellite', 4)
+            logger.error('Error conectando con Satellite', 4)
             raise

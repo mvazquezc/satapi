@@ -3,6 +3,7 @@ from architectures import *
 from capsules import *
 from connection import *
 from config_groups import *
+from config_templates import *
 from contentviews import *
 from domains import *
 from environments import *

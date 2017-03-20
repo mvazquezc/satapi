@@ -22,3 +22,15 @@ class SatAPIPuppetModules(SatAPIConnection):
                             {'search': criteria, 'count': count, 'per_page': count})
         return Response
 
+    # Search modules by repoid
+    def searchModulesByRepo(self,repoid, count=99):
+        Response = self.GET(self.KatelloAPILocation + 'repositories/' +
+                            str(repoid) + '/puppet_modules')
+        return Response
+
+    # Search a given module by repoid
+    def searchModuleByRepo(self, module, repoid, count=99):
+        params = {'search': module, 'per_page': count}
+        Response = self.GET(self.KatelloAPILocation + 'repositories/' +
+                            str(repoid) + '/puppet_modules', params)
+        return Response

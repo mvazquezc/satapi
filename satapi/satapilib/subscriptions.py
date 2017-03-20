@@ -17,3 +17,8 @@ class SatAPISubscriptions(SatAPIConnection):
                             {'search': criteria, 'count': count, 'per_page': count})
         return Response
 
+    # Get subscriptions by activation key
+    def getSubscriptionsByAK(self, AK_id, count=99):
+        Response=self.GET(self.KatelloAPILocation + 'activation_keys/%s/subscriptions' % str(AK_id),
+                          {'count': count, 'per_page': count})
+        return Response

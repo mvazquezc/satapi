@@ -5,10 +5,10 @@ class SatAPI(SatAPIActivationKeys,
              SatAPICapsules,
              SatAPIConfigGroups,
              SatAPIContentViews,
-             SatAPIDomains, 
+             SatAPIDomains,
              SatAPIEnvironments,
              SatAPIHosts,
-	     SatAPIHostgroups,
+	         SatAPIHostgroups,
              SatAPILocations,
              SatAPIMedia,
              SatAPIOperatingSystems,
@@ -22,7 +22,8 @@ class SatAPI(SatAPIActivationKeys,
              SatAPISubnets,
              SatAPISubscriptions,
              SatAPISystems,
-             SatAPITasks):
+             SatAPITasks,
+             SatAPIConfigTemplates):
 
     # Constructor
     def __init__(self, URL, User, Password, Debug=False):
@@ -30,6 +31,7 @@ class SatAPI(SatAPIActivationKeys,
         SatAPIArchitectures.__init__(self, URL, User, Password, Debug)
         SatAPICapsules.__init__(self, URL, User, Password, Debug)
         SatAPIConfigGroups.__init__(self, URL, User, Password, Debug)
+        SatAPIConfigTemplates.__init__(self, URL, User, Password, Debug)
         SatAPIContentViews.__init__(self, URL, User, Password, Debug)
         SatAPIDomains.__init__(self, URL, User, Password, Debug)
         SatAPIEnvironments.__init__(self, URL, User, Password, Debug)
