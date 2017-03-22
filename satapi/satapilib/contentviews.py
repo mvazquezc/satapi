@@ -84,10 +84,11 @@ class SatAPIContentViews(SatAPIConnection):
         return Response
 
     # Promote a given CV version id
-    def promoteContentViewVersion(self, ContentViewVersion, Environment):
+    def promoteContentViewVersion(self, ContentViewVersion, Environment, Force=False):
         JSONData=json.dumps(
             {
-                'environment_id': Environment['id']
+                'environment_id': Environment['id'],
+                'force': Force,
             }
         )
         Response=self.POST(self.KatelloAPILocation + 'content_view_versions/' + 
