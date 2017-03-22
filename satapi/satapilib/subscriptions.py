@@ -1,4 +1,5 @@
 from connection import *
+import os
 
 class SatAPISubscriptions(SatAPIConnection):
     # Constructor
@@ -28,8 +29,13 @@ class SatAPISubscriptions(SatAPIConnection):
         Response=self.GET(self.KatelloAPILocation + 'organizations/%s/subscriptions/manifest_history' % str(Organization['id']))
         return Response
 
-     # Delete a subscription manifest for a given organization
+    # Delete a subscription manifest for a given organization
     def deleteSubscriptionManifest(self, Organization):
         Response=self.POST(self.KatelloAPILocation + 'organizations/%s/subscriptions/delete_manifest' %str(Organization['id']))
         return Response
 
+    def uploadSubscriptionManifest(self, Organization, manifest_zip):
+        objFile = {'content': (os.path.basename(manifest_zip), open(manifest_zip, 'rb'), 'application/octet-stream')}
+        Response=self.POST_FILES(self.KatelloAPILocation + 'organizations/' +
+                   str(Organization['id'])+'/subscriptions/upload', objFile)
+        return Response
