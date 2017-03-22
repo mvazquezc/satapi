@@ -12,8 +12,10 @@ class SatAPIEnvironments(SatAPIConnection):
 
     # Get a environment by its name
     # Note: direct URL doesn't work, let's search and return first result only
+    # Use of better criteria for more accurate results
     def getEnvironmentByName(self, Name, OrganizationId):
-	Response=self.searchEnvironment(Name, OrganizationId, 1)['results'][0]
+        criteria = "name = %s" % Name
+	Response=self.searchEnvironment(criteria, OrganizationId, 1)['results'][0]
         return Response
 
     # Search environments by a search criteria

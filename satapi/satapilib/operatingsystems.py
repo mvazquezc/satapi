@@ -12,7 +12,7 @@ class SatAPIOperatingSystems(SatAPIConnection):
 
     # Get a operatingsystem by its Name
     def getOperatingSystemByName(self, Title):
-        Response=self.searchOperatingSystem('title="%s"' % Title, 1)
+        Response=self.searchOperatingSystem(Title, 1)
         try:
             return Response['results'][0]
         except:

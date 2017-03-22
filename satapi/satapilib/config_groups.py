@@ -1,4 +1,5 @@
 from connection import *
+import json
 
 class SatAPIConfigGroups(SatAPIConnection):
     # Constructor
@@ -22,3 +23,22 @@ class SatAPIConfigGroups(SatAPIConnection):
                             {'search': criteria, 'count': count, 'per_page': count})
         return Response
 
+    # Creates config group
+    def createConfigGroup(self, config_group={}):
+        JSONData = json.dumps(
+                {
+                    'config_group': config_group
+                })
+
+        Response = self.POST(self.SatAPILocation + 'config_groups/', JSONData)
+        return Response
+
+    # Updates config group
+    def updateConfigGroup(self, id, config_group={}):
+        JSONData = json.dumps(
+                {
+                    'config_group': config_group
+                })
+        Response = self.PUT(
+                self.SatAPILocation + 'config_groups/' + str(id), JSONData)
+        return Response

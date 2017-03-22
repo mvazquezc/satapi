@@ -10,6 +10,13 @@ class SatAPIContentViews(SatAPIConnection):
         Response=self.GET(self.KatelloAPILocation + 'content_views/' + str(Id))
         return Response
 
+    # Get content view filters
+    def getContentFilters(self, Id):
+        Response=self.GET(self.KatelloAPILocation +
+                          'content_view_filters/?content_view_id=' +
+                          str(Id))
+        return Response
+
     # Get a content view by its name
     # Note: direct URL doesn't work, let's search and return first result only
     def getContentViewByName(self, Name, Organization):
@@ -94,4 +101,10 @@ class SatAPIContentViews(SatAPIConnection):
         Response=self.POST(self.KatelloAPILocation + 'content_view_versions/' + 
                     str(ContentViewVersion)+'/promote', JSONData)
 
+        return Response
+
+    # Return content view versions
+    def getContentViewVersions(self, ContentView):
+        Response = self.GET(self.KatelloAPILocation + 'content_views/' +
+                            str(ContentView['id']) + '/content_view_versions')
         return Response
