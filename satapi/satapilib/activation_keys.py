@@ -54,6 +54,19 @@ class SatAPIActivationKeys(SatAPIConnection):
                             JSONData)
         return Response
 
+    # Attach Host collections to an Activation Key
+    def setActivationKeyHostCollections(self, ActivationKey, Hostcollections):
+        JSONData=json.dumps(
+            {
+                'id': ActivationKey['id'],
+                'host_collection_ids': Hostcollections
+            }
+        )
+        Response=self.POST(self.KatelloAPILocation + 'activation_keys/' +
+                            str(ActivationKey['id']) + '/host_collections',
+                            JSONData)
+        return Response
+
     # Override a product (enable/disable) in an Activation Key
     def overrideActivationKeyProduct(self, ActivationKey, Name, Enable):
         JSONData=json.dumps(
