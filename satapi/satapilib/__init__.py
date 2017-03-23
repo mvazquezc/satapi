@@ -16,6 +16,7 @@ from media import *
 from operatingsystems import *
 from organizations import *
 from packages import *
+from products import *
 from ptables import *
 from puppet_classes import *
 from puppet_environments import *

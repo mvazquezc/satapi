@@ -16,6 +16,7 @@ class SatAPI(SatAPIActivationKeys,
              SatAPIOperatingSystems,
              SatAPIOrganizations,
              SatAPIPackages,
+             SatAPIProducts,
              SatAPIPTables,
              SatAPIPuppetClasses,
              SatAPIPuppetModules,
@@ -46,6 +47,7 @@ class SatAPI(SatAPIActivationKeys,
         SatAPIOperatingSystems.__init__(self, URL, User, Password, Debug)
         SatAPIOrganizations.__init__(self, URL, User, Password, Debug)
         SatAPIPackages.__init__(self, URL, User, Password, Debug)
+        SatAPIProducts.__init__(self, URL, User, Password, Debug)
         SatAPIPTables.__init__(self, URL, User, Password, Debug)
         SatAPIPuppetClasses.__init__(self, URL, User, Password, Debug)
         SatAPIPuppetEnvironments.__init__(self, URL, User, Password, Debug)
