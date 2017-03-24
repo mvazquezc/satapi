@@ -11,9 +11,9 @@ class SatAPIHostcollections(SatAPIConnection):
         return Response
 
     # Get a host collection by its name
-    def getHostcollectionByName(self, Name):
+    def getHostcollectionByName(self, Name, Organization):
         Response=self.GET(self.KatelloAPILocation + 'host_collections/',
-                            {'name': Name})
+                            {'name': Name, 'organization_id': Organization['id']})
         return Response
 
     # Create a host collection given a name
