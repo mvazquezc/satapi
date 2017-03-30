@@ -22,6 +22,7 @@ class SatAPI(SatAPIActivationKeys,
              SatAPIPuppetModules,
              SatAPIPuppetEnvironments,
              SatAPIRepositories,
+             SatAPISettings,
              SatAPISubnets,
              SatAPISubscriptions,
              SatAPISystems,
@@ -53,6 +54,7 @@ class SatAPI(SatAPIActivationKeys,
         SatAPIPuppetEnvironments.__init__(self, URL, User, Password, Debug)
         SatAPIPuppetModules.__init__(self, URL, User, Password, Debug)
         SatAPIRepositories.__init__(self, URL, User, Password, Debug)
+        SatAPISettings.__init__(self, URL, User, Password, Debug)
         SatAPISubnets.__init__(self, URL, User, Password, Debug)
         SatAPISubscriptions.__init__(self, URL, User, Password, Debug)
         SatAPISystems.__init__(self, URL, User, Password, Debug)
