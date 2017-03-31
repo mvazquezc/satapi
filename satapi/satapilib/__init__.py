@@ -25,5 +25,6 @@ from repositories import *
 from settings import *
 from subnets import *
 from subscriptions import *
+from sync_plans import *
 from systems import *
 from tasks import *

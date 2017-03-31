@@ -25,6 +25,7 @@ class SatAPI(SatAPIActivationKeys,
              SatAPISettings,
              SatAPISubnets,
              SatAPISubscriptions,
+             SatAPISyncPlans,
              SatAPISystems,
              SatAPITasks,
              SatAPIConfigTemplates):
@@ -57,5 +58,6 @@ class SatAPI(SatAPIActivationKeys,
         SatAPISettings.__init__(self, URL, User, Password, Debug)
         SatAPISubnets.__init__(self, URL, User, Password, Debug)
         SatAPISubscriptions.__init__(self, URL, User, Password, Debug)
+        SatAPISyncPlans.__init__(self, URL, User, Password, Debug)
         SatAPISystems.__init__(self, URL, User, Password, Debug)
         SatAPITasks.__init__(self, URL, User, Password, Debug)
