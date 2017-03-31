@@ -9,7 +9,8 @@ class SatAPISyncPlans(SatAPIConnection):
     def getSyncPlanByName(self, Name, Organization):
         Response=self.GET(self.KatelloAPILocation + 'sync_plans/', {'name': Name, 'organization_id': Organization['id']})
         return Response
-
+    
+    # Create a sync plan
     def createSyncPlan(self, Name, Organization, Interval, SyncDate, Description=None, Enabled=False):
         JSONData=json.dumps(
             {
@@ -24,7 +25,8 @@ class SatAPISyncPlans(SatAPIConnection):
         Response=self.POST(self.KatelloAPILocation + 'organizations/' +
                     str(Organization['id']) + '/sync_plans', JSONData)
         return Response
-
+ 
+    # Add products to a sync plan
     def addProductToSyncPlan(self, Organization, SyncPlan, Products):
         JSONData=json.dumps(
             {
