@@ -5,6 +5,17 @@ class SatAPIProducts(SatAPIConnection):
     def __init__(self, URL, User, Password, Debug=False):
         SatAPIConnection.__init__(self, URL, User, Password, Debug)
 
+    # Create a product given a name
+    def createProduct(self, Name, Organization):
+        JSONData=json.dumps(
+            {
+                'name': Name,
+                'organization_id': Organization['id']
+            }
+        )
+        Response=self.POST(self.KatelloAPILocation + 'products/', JSONData)
+        return Response
+
     # Get a product by its name
     def getProductByName(self, Name, Organization):
         Response=self.GET(self.KatelloAPILocation + 'products/', {'name': Name, 'organization_id': Organization['id']})

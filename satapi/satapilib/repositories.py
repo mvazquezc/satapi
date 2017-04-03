@@ -6,6 +6,18 @@ class SatAPIRepositories(SatAPIConnection):
     def __init__(self, URL, User, Password, Debug=False):
         SatAPIConnection.__init__(self, URL, User, Password, Debug)
 
+    # Create a repository given a name
+    def createRepository(self, Name, Product_Id, Content_Type):
+        JSONData=json.dumps(
+            {
+                'name': Name,
+                'product_id': Product_Id,
+                'content_type': Content_Type
+            }
+        )
+        Response=self.POST(self.KatelloAPILocation + 'repositories/', JSONData)
+        return Response
+
     # Get a repository by its Id number
     def getRepository(self, Id, Organization):
         Response=self.GET(self.KatelloAPILocation + 'repositories/' + str(Id),
@@ -37,7 +49,6 @@ class SatAPIRepositories(SatAPIConnection):
     # Get a repository by its name
     def getRepositoryByName(self, Organization, Name):
         Response=self.searchRepository(Organization, 'name = "%s"' % Name, 1)
-
         try:
             return Response['results'][0]
         except:
@@ -47,7 +58,6 @@ class SatAPIRepositories(SatAPIConnection):
     def getRepositoryByGroup(self, Organization, Product_id):
         Response=self.GET(self.KatelloAPILocation + 'repositories',
                           {'organization_id': Organization, 'product_id': Product_id})
-
         return Response
 
     # Search repository by a search criteria
@@ -64,7 +74,6 @@ class SatAPIRepositories(SatAPIConnection):
 
     # Upload content to Satellite Repository
     def uploadContentToRepository (self, FilePath, RepoId):
-
 	objFile = {'content': (os.path.basename(FilePath), open(FilePath, 'rb'), 'application/octet-stream')}
         Response=self.POST_FILES(self.KatelloAPILocation + 'repositories/' +
                             str(RepoId)+'/upload_content',
