@@ -42,6 +42,11 @@ class SatAPIContentViews(SatAPIConnection):
                     str(OrganizationId) + '/content_views',
                     JSONData)
         return Response
+    
+    # Get puppet modules assigned to a content view
+    def getContentViewPuppetModules(self, ContentView):
+        Response=self.GET(self.KatelloAPILocation + 'content_views/' + str(ContentView['id']) + '/content_view_puppet_modules')
+        return Response
 
     # Add a puppet module to a content view
     def addModuleToContentView(self, Module, ContentView):
