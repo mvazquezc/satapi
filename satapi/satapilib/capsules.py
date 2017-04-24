@@ -10,7 +10,6 @@ class SatAPICapsules(SatAPIConnection):
         Response=self.GET(self.KatelloAPILocation + 'capsules/' + str(Id))
         return Response
 
-
     # Get a capsule by its name
     def getCapsuleByName(self, Name):
         Response=self.searchCapsule('name="%s"' % Name, 1)
@@ -52,5 +51,22 @@ class SatAPICapsules(SatAPIConnection):
             }
         )
         Response=self.PUT(self.SatAPILocation + 'smart_proxies/' + str(Id), JSONData)
+        return Response
+
+    # Get Capsule lifecycle environment
+    def getCapsuleLifecycleEnv(self, Id):
+        Response=self.GET(self.KatelloAPILocation + 'capsules/' + 
+                    str(Id) + '/content/lifecycle_environments')
+        return Response
+
+    # Set Capsule lifecycle environment
+    def setCapsuleLifecycleEnv(self, Id, EnvironmentId):
+        JSONData=json.dumps(
+            {
+                'environment_id': EnvironmentId
+            }
+        )
+        Response=self.POST(self.KatelloAPILocation + 'capsules/' +
+                    str(Id) + '/content/lifecycle_environments', JSONData)
         return Response
 
