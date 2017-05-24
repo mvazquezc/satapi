@@ -10,6 +10,7 @@ from environments import *
 from hosts import *
 from hostcollections import *
 from hostgroups import *
+from ldap_auth import *
 from lifecycle_environments import *
 from locations import *
 from media import *

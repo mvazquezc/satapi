@@ -10,6 +10,7 @@ class SatAPI(SatAPIActivationKeys,
              SatAPIHosts,
              SatAPIHostcollections,
              SatAPIHostgroups,
+             SatAPILdapAuth,
              SatAPILifecycleEnvironments,
              SatAPILocations,
              SatAPIMedia,
@@ -43,6 +44,7 @@ class SatAPI(SatAPIActivationKeys,
         SatAPIHosts.__init__(self, URL, User, Password, Debug)
         SatAPIHostcollections.__init__(self, URL, User, Password, Debug)
         SatAPIHostgroups.__init__(self, URL, User, Password, Debug)
+        SatAPILdapAuth.__init__(self, URL, User, Password, Debug)
         SatAPILifecycleEnvironments.__init__(self, URL, User, Password, Debug)
         SatAPILocations.__init__(self, URL, User, Password, Debug)
         SatAPIMedia.__init__(self, URL, User, Password, Debug)
