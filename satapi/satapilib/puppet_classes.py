@@ -103,6 +103,6 @@ class SatAPIPuppetClasses(SatAPIConnection):
         return Response
     
     # Delete overrides from a Smart Class Parameter
-    def deletePuppetClassSmartParameterOverrides(self, Parameter, Override):
+    def deleteSmartClassSmartParameterOverrides(self, Parameter, Override):
         Response=self.DELETE(self.SatAPILocation + 'smart_class_parameters/' + str(Parameter) + '/override_values/' + str(Override))
 	return Response
