@@ -91,3 +91,13 @@ class SatAPIPuppetClasses(SatAPIConnection):
             raise err
 
         return Response
+    
+    # Get all smart class parameters
+    def getSmartClassParameters(self, count=99):
+        Response=self.GET(self.SatAPILocation + 'smart_class_parameters', {'count': count, 'per_page': count})
+        return Response
+    
+    # Get overrides for an smart class parameters
+    def getSmartClassParameterOverride(self, Parameter, count=99):
+        Response=self.GET(self.SatAPILocation + 'smart_class_parameters/' + str(Parameter) + '/override_values', {'count': count, 'per_page': count})
+        return Response
